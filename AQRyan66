@@ -25,7 +25,7 @@ proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
      enable: true
      url: https://www.gstatic.com/generate_204
      interval: 3600
-    filter: ^[^IPLC]+$
+    filter: ^(?!.*(?:频道|IPV6|IPLC)).*
 
   我的机场2: #CM优选
     type: http
@@ -43,7 +43,7 @@ proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
      enable: true
      url: https://www.gstatic.com/generate_204
      interval: 3600
-    filter: ^[^IPLC]+$ | ^(?!.*频道).* | ^(?!.*IPv6).*
+    filter: ^(?!.*(?:频道|IPV6|IPLC)).*
 
   我的机场3: #TC优选
     type: http
@@ -61,7 +61,7 @@ proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
      enable: true
      url: https://www.gstatic.com/generate_204
      interval: 3600
-    filter: ^[^IPLC]+$ | ^(?!.*频道).* | ^(?!.*IPv6).*
+    filter: ^(?!.*(?:频道|IPV6|IPLC)).*
 
 
 proxy-groups:    # 代理策略组
