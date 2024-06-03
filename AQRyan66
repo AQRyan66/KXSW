@@ -18,13 +18,14 @@ proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
     # 初步筛选需要的节点，可有效减轻路由器压力，支持正则表达式，不筛选可删除此配置项
     # filter: "香港|日本|新加坡|印度|韩国|迪拜"
     # 初步排除不需要的节点，支持正则表达式，若不排除可删除此配置项
-    # exclude-filter: "IPLC"
+    exclude-filter: IPLC
     # filter: "(?i)韩|(?i)港|(?i)台|(?i)日本|(?i)新|(?i)美|(?i)迪"
     # 健康检查
     health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 3600
+     enable: true
+     url: https://www.gstatic.com/generate_204
+     interval: 3600
+    filter: ^[^IPLC]+$
 
   我的机场2: #CM优选
     type: http
@@ -39,9 +40,10 @@ proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
     # filter: "(?i)韩|(?i)港|(?i)台|(?i)日本|(?i)新|(?i)美|(?i)迪"
     # 健康检查
     health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 3600
+     enable: true
+     url: https://www.gstatic.com/generate_204
+     interval: 3600
+    filter: ^[^IPLC]+$ | ^(?!.*频道).* | ^(?!.*IPv6).*
 
   我的机场3: #TC优选
     type: http
@@ -56,9 +58,10 @@ proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
     # filter: "(?i)韩|(?i)港|(?i)台|(?i)日本|(?i)新|(?i)美|(?i)迪"
     # 健康检查
     health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 3600
+     enable: true
+     url: https://www.gstatic.com/generate_204
+     interval: 3600
+    filter: ^[^IPLC]+$ | ^(?!.*频道).* | ^(?!.*IPv6).*
 
 
 proxy-groups:    # 代理策略组
@@ -142,7 +145,7 @@ proxy-groups:    # 代理策略组
     interval: 3600
     tolerance: 50
     use:
-     - 我的机场1
+
      - 我的机场2
      - 我的机场3
     filter: "(?i)新|新加坡|坡|狮城|SG|Singapore"
