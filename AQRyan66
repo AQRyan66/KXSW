@@ -1,0 +1,294 @@
+proxy-providers: # 代理集（获取机场订阅链接内的所有节点）
+  # 常用参数
+    # type - 指定代理提供者的类型。Clash 支持多种类型的代理，如 http, https, socks5, shadowsocks, vmess 等。
+    # url - 提供者文件的 URL。Clash 会从这个 URL 下载代理信息。
+    # interval - 更新间隔（单位为分钟）。指定了多久从 URL 更新一次代理信息。
+    # path - 可选参数，指定下载文件的保存路径。
+    # health-check - 可选参数，用于定义健康检查的配置，如 url（健康检查的URL）、interval（健康检查的间隔）。
+    # tunnel - 可选参数，布尔值，指定是否使用 TUN/TAP 网络接口。
+    # skip-cert-verify - 可选参数，布尔值，指定是否跳过证书验证。
+    # timeout - 可选参数，指定超时时间（单位为秒）。
+    # tls - 可选参数，用于配置 TLS 相关的设置。
+  我的机场1: #青森
+    type: http
+    # 机场订阅链接，使用 Clash 链接
+    url: "https://accd.vo0.site/link/maSOYdQEuhI9Xtox?clash=1"  #正常来说只需要修改此项链接,既 Clash 链接
+    path: ./proxies/airport1.yaml  #文件记得修改
+    interval: 86400
+    # 初步筛选需要的节点，可有效减轻路由器压力，支持正则表达式，不筛选可删除此配置项
+    # filter: "香港|日本|新加坡|印度|韩国|迪拜"
+    # 初步排除不需要的节点，支持正则表达式，若不排除可删除此配置项
+    # exclude-filter: "IPLC"
+    # filter: "(?i)韩|(?i)港|(?i)台|(?i)日本|(?i)新|(?i)美|(?i)迪"
+    # 健康检查
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 3600
+
+  我的机场2: #CM优选
+    type: http
+    # 机场订阅链接，使用 Clash 链接
+    url: "https://cmyx.aqryan66.icu/72fba11a-9a70-4eca-b7d5-8735a022ea94?clash"  #正常来说只需要修改此项链接,既 Clash 链接
+    path: ./proxies/airport2.yaml  #文件记得修改
+    interval: 86400
+    # 初步筛选需要的节点，可有效减轻路由器压力，支持正则表达式，不筛选可删除此配置项
+    # filter: "香港|日本|新加坡|印度|韩国|迪拜"
+    # 初步排除不需要的节点，支持正则表达式，若不排除可删除此配置项
+    # exclude-filter: "IPLC"
+    # filter: "(?i)韩|(?i)港|(?i)台|(?i)日本|(?i)新|(?i)美|(?i)迪"
+    # 健康检查
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 3600
+
+  我的机场3: #TC优选
+    type: http
+    # 机场订阅链接，使用 Clash 链接
+    url: "https://tcyx.aqryan66.icu/d52807f3-81ab-49e5-a3a8-ed33b29b8fbe?clash"  #正常来说只需要修改此项链接,既 Clash 链接
+    path: ./proxies/airport3.yaml  #文件记得修改
+    interval: 86400
+    # 初步筛选需要的节点，可有效减轻路由器压力，支持正则表达式，不筛选可删除此配置项
+    # filter: "香港|日本|新加坡|印度|韩国|迪拜"
+    # 初步排除不需要的节点，支持正则表达式，若不排除可删除此配置项
+    # exclude-filter: "IPLC"
+    # filter: "(?i)韩|(?i)港|(?i)台|(?i)日本|(?i)新|(?i)美|(?i)迪"
+    # 健康检查
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 3600
+
+
+proxy-groups:    # 代理策略组
+  # 常用参数
+    #name: 代理组的名称，用于在策略中引用
+    #type: 代理组的类型
+     #select: 用户可以从这个组中选择一个代理进行连接。
+     #fallback: 按顺序尝试每个代理，直到成功连接。(故障转移)
+     #url-test: 根据对代理服务器的URL测试结果选择最快的代理。
+     #load-balance: 负载均衡，按一定算法选择代理，以平衡代理服务器的负载。
+      #strategy  (使用负载均衡,需用本参数,再分配给一下3个参数)
+       #least-connections：将流量分配给当前连接数最少的代理。
+       #consistent-hashing：使用一致性哈希算法来分配流量，以减少连接抖动。
+       #round-robin：按照轮询的方式分配流量。
+    #proxies: 该策略组使用的代理列表，可以包括直接连接DIRECT、拒绝连接REJECT 以及 其他已定义的代理。
+    #DIRECT：表示直接连接，即不使用代理，直接连接到目标服务器。
+    #REJECT：表示拒绝连接，即拒绝连接到目标服务器。PyCharm
+    #筛选参数
+    #filter: "(?i)港|hk|hongkong|hong kong|台|tw|taiwan|日本|jp|japan|新|sg|singapore|美|us|unitedstates|united states"
+    #排除参数
+    #exclude-filter: "高倍|×10"
+
+  - name: 🚀 科学上网
+    type: select
+    proxies: [🌈 自动选择, 🔍 人工选择, 🌀 负载均衡, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点 ,🇰🇷 韩国节点,🇸🇬 新加坡节点, 🇺🇸 美国节点,]
+
+  - name: 🔍 人工选择
+    type: select
+    use: 
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+
+  - {name: 🐟 漏网之鱼, type: select, proxies: [DIRECT,🚀 科学上网]}
+  - {name: 🤖 人工智能, type: select, proxies: [🚀 科学上网, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇰🇷 韩国节点, 🇸🇬 新加坡节点, 🇺🇸 美国节点]}
+  - {name: 📲 电报消息, type: select, proxies: [🚀 科学上网, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇰🇷 韩国节点, 🇸🇬 新加坡节点, 🇺🇸 美国节点]}
+  - {name: Ⓜ️ 微软服务, type: select, proxies: [DIRECT,🚀 科学上网]}
+  - {name: 🍎 苹果服务, type: select, proxies: [DIRECT,🚀 科学上网]}
+  - {name: 🎬 Netflix, type: select, proxies: [DIRECT,🚀 科学上网]}
+  - {name: 🎬 Disney+, type: select, proxies: [DIRECT,🚀 科学上网]}
+  - {name: 🎵 Spotify, type: select, proxies: [DIRECT,🚀 科学上网]}
+  - {name: 🖥️ 直连软件, type: select, proxies: [DIRECT,🚀 科学上网]}
+
+  # ----------------国家或地区策略组---------------------
+  # 自动选择节点，即按照 url 测试结果使用延迟最低的节点；测试后容差大于 50ms 才会切换到延迟低的那个节点；筛选出“香港”节点，支持正则表达式
+  - name: 🇭🇰 香港节点
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+    filter: "(?i)港|hk|hongkong|hong kong"
+    
+
+  # 节点负载均衡，即将请求均匀分配到多个节点上，优点是更稳定，速度可能有提升；将相同顶级域名的请求分配给策略组内的同一个代理节点；推荐在节点复用比较多的情况下使用
+  - name: 🇨🇳 台湾节点
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+    filter: "(?i)台|新北|彰化|TW|Taiwan"
+
+  # 若有多个机场，可以使用 `include-all-providers: true` 代替 `use: [🛫 青森 1, 🛫 青森 2, ...]`
+  - name: 🇯🇵 日本节点
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+    filter: "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|[^-]日|JP|Japan"
+
+  - name: 🇸🇬 新加坡节点
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+    filter: "(?i)新|新加坡|坡|狮城|SG|Singapore"
+
+  - name: 🇺🇸 美国节点
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+    filter: "(?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States"
+
+  - name: 🇰🇷 韩国节点
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+    filter: "(?i)韩|KR|Korea|KOR|首尔|韩|韓"
+
+  - name: 🌈 自动选择
+    type: url-test
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+
+  - name: 🌀 负载均衡
+    type: load-balance
+    interval: 3600
+    tolerance: 50
+    use:
+     - 我的机场1
+     - 我的机场2
+     - 我的机场3
+
+rule-providers: #规则集
+  直连列表:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E7%9B%B4%E8%BF%9E%E5%88%97%E8%A1%A8.list"
+    path: ./providers/direct.yaml
+    interval: 86400
+
+  代理列表:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E4%BB%A3%E7%90%86%E5%88%97%E8%A1%A8.list"
+    path: ./providers/proxy.yaml
+    interval: 86400
+
+  Spotify:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%20Spotify.list"
+    path: ./providers/Spotify.yaml
+    interval: 86400
+
+  人工智能:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD.list"
+    path: ./providers/人工智能.yaml
+    interval: 86400
+
+  奈非:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E5%A5%88%E9%9D%9E.list"
+    path: ./providers/奈非.yaml
+    interval: 86400
+
+  电报消息:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E7%94%B5%E6%8A%A5%E6%B6%88%E6%81%AF.list"
+    path: ./providers/电报消息.yaml
+    interval: 86400
+
+  直连软件:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E7%9B%B4%E8%BF%9E%E8%BD%AF%E4%BB%B6.list"
+    path: ./providers/直连软件.yaml
+    interval: 86400
+
+  苹果服务:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E8%8B%B9%E6%9E%9C%E6%9C%8D%E5%8A%A1.list"
+    path: ./providers/苹果服务.yaml
+    interval: 86400
+
+  迪士尼:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E8%BF%AA%E5%A3%AB%E5%B0%BC.list"
+    path: ./providers/迪士尼.yaml
+    interval: 86400
+
+  微软服务:
+    type: http
+    behavior: classical
+    url: "https://gitea.com/aqryan66/clash/raw/branch/main/pzwj/%E5%BE%AE%E8%BD%AF%E6%9C%8D%E5%8A%A1.list"
+    path: ./providers/微软服务.yaml
+    interval: 86400
+
+rules:
+ # 常用参数
+    # DOMAIN: 匹配完全一致的域名。
+    # DOMAIN-SUFFIX: 匹配特定后缀的域名。
+    # DOMAIN-KEYWORD - 匹配包含特定关键词的域名。
+    # IP-CIDR - 匹配特定IP地址或IP地址范围（使用CIDR表示法）。
+    # GEOIP - 匹配特定国家或地区的IP地址。- IP-CIDR,192.168.1.0/24这将排除所有源 IP 地址在 192.168.1.0/24 范围内的流量。
+    # IP-ASN - 匹配特定自治系统号码（ASN）的IP地址。
+    # PORT - 匹配特定端口号。
+    # MATCH - 默认匹配条件，如果其他规则都没有匹配到，则使用此规则。
+    # USER-AGENT - 匹配HTTP请求中的User-Agent字段。
+    # PROCESS-NAME - 匹配特定进程名称（需要在支持TUN模式的系统上使用）。
+    # SRC-IP-CIDR - 匹配源IP地址或源IP地址范围（使用CIDR表示法）。
+    # SRC-PORT - 匹配源端口号。
+    # SRC-GEOIP - 匹配源IP地址的地理位置。
+    # SRC-ASN - 匹配源IP地址的自治系统号码（ASN）。
+    # SYSTEM-PROXY - 强制使用系统代理。
+    # FINAL - 表示最后的代理选择，如果前面的规则都没有匹配，则使用此代理。
+ # 以下程序名直连 或 进程名直连
+
+  - RULE-SET,直连列表,DIRECT
+  - RULE-SET,代理列表,🚀 科学上网
+  - RULE-SET,人工智能,🤖 人工智能
+  - RULE-SET,电报消息,📲 电报消息
+  - RULE-SET,微软服务,Ⓜ️ 微软服务,
+  - RULE-SET,苹果服务,🍎 苹果服务
+  - RULE-SET,奈非,🎬 Netflix
+  - RULE-SET,迪士尼,🎬 Disney+
+  - RULE-SET,Spotify,🎵 Spotify
+  - RULE-SET,直连软件,🖥️ 直连软件
+
+ #以下兜底
+
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🐟 漏网之鱼
